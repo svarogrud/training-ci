@@ -9,6 +9,7 @@ pipeline {
     stage('Echo') {
       steps {
         sh 'echo \'Bla\''
+        sh 'python -V'
       }
     }
     stage('Git checkout') {

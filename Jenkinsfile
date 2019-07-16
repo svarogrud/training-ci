@@ -17,14 +17,6 @@ pipeline {
         git(url: 'https://github.com/svarogrud/training-ci', branch: 'master', credentialsId: '424e300d-c68d-4ce5-acb1-7016dc9a489a')
       }
     }
-    stage('Run app') {
-      steps {
-        dir(path: 'flask-app') {
-          sh 'docker-compose up -d --build'
-        }
-
-      }
-    }
     stage('Run Tests') {
       steps {
         dir(path: 'flask-app') {
@@ -36,6 +28,14 @@ docker-compose down'''
 
         junit 'flask-app/junit-report/report.xml'
         sh 'sudo rm -rf flask-app/junit-report'
+      }
+    }
+    stage('Run app') {
+      steps {
+        dir(path: 'flask-app') {
+          sh 'docker-compose up -d --build'
+        }
+
       }
     }
   }
